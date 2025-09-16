@@ -56,7 +56,7 @@ def run():
     ###################  TRÆNINGSDATA
     ##############denne linje kan generere CSV-data på konsol.
     ##############kopier dem og læg dem ind i en CSV-fil
-    #  print(normalized_x, ',', angle, ',', speed)
+    #  print(x, ',', angle, ',', speed)
 
 
 
@@ -116,5 +116,6 @@ def run():
     pygame_widgets.update(events)
     pygame.display.update()
     clock.tick(30)  # Kør ved 30 FPS
+
 
 
