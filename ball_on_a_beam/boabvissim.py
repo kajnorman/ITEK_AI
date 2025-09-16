@@ -30,7 +30,7 @@ def init():
 
     # Indlæs neuralt netværk (håndter fejl, hvis filen mangler)
     try:
-        model = keras.models.load_model('old_file.keras')
+        model = keras.models.load_model('file.keras')
     except Exception as e:
         print(f"Fejl ved indlæsning af model: {e}")
         model = None
@@ -47,8 +47,12 @@ def run():
     normalized_x = x / 100
 
     # Sæt bjælkens vinkel fra slideren
-    angle = slider.getValue() - 50
+    #angle = slider.getValue() - 50
 
+    #Eller sæt bjælkens vinkel udfra det neurale netværks forudsigelse
+    angle = model.predict(np.array([[float(x), float(speed)]]))  
+    
+    
     ###################  TRÆNINGSDATA
     ##############denne linje kan generere CSV-data på konsol.
     ##############kopier dem og læg dem ind i en CSV-fil
@@ -77,7 +81,7 @@ def run():
 
 
     pygame.draw.circle(screen, green, [750, 300], 50)  # support
-    pygame.draw.rect(screen, green, pygame.Rect(650, 300, 200, 100), 49)  # support
+    pygame.draw.rect(screen, green, pygame.Rect(650, 300, 200, 100), 55)  # support
 
     # Tegn den roterede bjælke
     pygame.draw.line(screen, red, (x1, y1), (x2, y2), 10)
@@ -97,13 +101,9 @@ def run():
     #########Ved generering at træningsdata kan følgende måske bruges
     '''
     if (x < 700) and (x > 500) and (speed < 0.5) and (speed > -0.5):
-        n = 0
         x = 100 + 1000 * random.random()
         speed = 5 * (random.random() - 0.5)
     '''
-
-
-
 
 
     # Håndter lukning af programmet
@@ -116,4 +116,5 @@ def run():
     pygame_widgets.update(events)
     pygame.display.update()
     clock.tick(30)  # Kør ved 30 FPS
+
 
